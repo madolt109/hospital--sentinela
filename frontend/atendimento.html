@@ -91,43 +91,93 @@
 
 </div>
 
+```html
 <script>
 
-function cadastrar(){
+async function cadastrar() {
 
- fetch("http://localhost:3000/atendimento",{
+    const nome = document.getElementById("nome").value;
+    const datadenascimento = document.getElementById("datadenascimento").value;
+    const sexo = document.getElementById("sexo").value;
+    const endereco = document.getElementById("Endereco").value;
+    const email = document.getElementById("email").value;
+    const contatodeemergencia = document.getElementById("contatodeemergencia").value;
+    const cpf = document.getElementById("cpf").value;
+    const tipo = document.getElementById("tipo").value;
 
-  method:"POST",
+    // Verifica se os campos principais foram preenchidos
+    if (
+        !nome ||
+        !datadenascimento ||
+        !sexo ||
+        !endereco ||
+        !email ||
+        !contatodeemergencia ||
+        !cpf
+    ) {
+        alert("⚠️ Preencha todos os campos!");
+        return;
+    }
 
-  headers:{"Content-Type":"application/json"},
+    try {
 
-  body: JSON.stringify({
+        const resposta = await fetch("http://localhost:3000/atendimento", {
 
-    nome: nome.value,
+            method: "POST",
 
-      datadenascimento: datadenascimento.value,
+            headers: {
+                "Content-Type": "application/json"
+            },
 
-      sexo: sexo.value,
+            body: JSON.stringify({
 
-      endereco: endereco.value,
+                nome: nome,
+                datadenascimento: datadenascimento,
+                sexo: sexo,
+                endereco: endereco,
+                email: email,
+                contatodeemergencia: contatodeemergencia,
+                cpf: cpf,
+                tipo: tipo
 
-      email: email.value,
-      
-    cpf: cpf.value,
+            })
 
-contatodeemergencia: contatodeemergencia.value,
-      
-    tipo: tipo.value
+        });
 
-  })
+        const dados = await resposta.json();
 
- });
+        if (resposta.ok) {
 
- alert("Paciente enviado para triagem");
+            alert("✅ Paciente cadastrado com sucesso!");
+
+            // Limpa os campos
+            document.getElementById("nome").value = "";
+            document.getElementById("datadenascimento").value = "";
+            document.getElementById("sexo").value = "";
+            document.getElementById("Endereco").value = "";
+            document.getElementById("email").value = "";
+            document.getElementById("contatodeemergencia").value = "";
+            document.getElementById("cpf").value = "";
+
+        } else {
+
+            alert("❌ Erro ao cadastrar paciente: " + (dados.erro || "Erro desconhecido"));
+
+        }
+
+    } catch (erro) {
+
+        console.error("Erro:", erro);
+
+        alert("❌ Não foi possível conectar ao servidor. Verifique se o backend está rodando.");
+
+    }
 
 }
 
 </script>
+```
+
 
 </body>
 </html>
