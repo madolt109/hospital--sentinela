@@ -36,7 +36,7 @@
         placeholder="Nome Completo">
     
     <input
-        id="Data de nascimento"
+        id="datadenascimento"
         type="text"
         placeholder="xx/xx/xxxx">
 
@@ -46,17 +46,17 @@
         placeholder="digite seu sexo">
 
     <input
-        id="Endereço"
+        id="Endereco"
         type="text"
         placeholder="seu Endereço">
 
     <input
-        id="Email"
+        id="email"
         type="text"
         placeholder="seu Email">
 
     <input
-        id="contato de emergencia"
+        id="contatodeemergencia"
         type="text"
         placeholder="numero de emergencia">
 
@@ -105,8 +105,18 @@ function cadastrar(){
 
     nome: nome.value,
 
+      datadenascimento: datadenascimento.value,
+
+      sexo: sexo.value,
+
+      endereco: endereco.value,
+
+      email: email.value,
+      
     cpf: cpf.value,
 
+contatodeemergencia: contatodeemergencia.value,
+      
     tipo: tipo.value
 
   })
